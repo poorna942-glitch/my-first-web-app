@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Princess ❤️</title>
+    <title>Reverse Prank! ❤️</title>
     <style>
         body {
             background-color: #ffeef2;
@@ -13,7 +13,7 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            overflow: hidden; /* Button screen-ah vittu veliya odama irukka */
+            overflow: hidden;
         }
         .container {
             text-align: center;
@@ -35,7 +35,7 @@
             border-radius: 10px;
             border: none;
             cursor: pointer;
-            position: absolute; /* Idhu thaan move aaguradhuku help pannum */
+            position: absolute;
             transition: 0.1s;
         }
         #yesBtn { 
@@ -56,29 +56,26 @@
         <h1>Hi Princess! ❤️</h1>
         <p>Will you be mine forever?</p>
         <div class="buttons">
-            <button id="yesBtn" onclick="celebrate()">Yes</button>
-            <button id="noBtn" onmouseover="moveButton()">No</button>
+            <button id="yesBtn" onmouseover="moveYesButton()">Yes</button>
+            <button id="noBtn" onclick="rejected()">No</button>
         </div>
     </div>
 
     <script>
-        // "No" button escape aagura logic
-        function moveButton() {
-            const noBtn = document.getElementById('noBtn');
-            
-            // Random-ah screen-la vera oru coordinate-ku anupuradhu
-            // window.innerWidth/Height - button size (so it stays on screen)
+        // YES button escape aagura logic
+        function moveYesButton() {
+            const yesBtn = document.getElementById('yesBtn');
             const x = Math.random() * (window.innerWidth - 100);
             const y = Math.random() * (window.innerHeight - 50);
             
-            noBtn.style.left = x + "px";
-            noBtn.style.top = y + "px";
+            yesBtn.style.left = x + "px";
+            yesBtn.style.top = y + "px";
         }
 
-        // "Yes" click panna apuram enna nadakkanum
-        function celebrate() {
+        // NO click panna enna nadakkanum
+        function rejected() {
             const box = document.getElementById('main-box');
-            box.innerHTML = "<h1>Yayyy! I Love You! ❤️💍</h1><p>You made me the happiest person!</p>";
+            box.innerHTML = "<h1>Oh No! 💔</h1><p>Better luck next time, Poorna!</p>";
         }
     </script>
 
