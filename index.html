@@ -3,50 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surprise for You!</title>
+    <title>For My Princess ❤️</title>
     <style>
-        /* Building the look - CSS */
         body {
-            background-color: #ffeef2; /* Light pinkish background */
+            background-color: #ffeef2;
             font-family: 'Arial', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
+            overflow: hidden; /* Button screen-ah vittu veliya odama irukka */
         }
         .container {
             text-align: center;
             background: white;
-            padding: 50px;
+            padding: 40px;
             border-radius: 30px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 320px;
         }
-        h1 {
-            color: #ff4d6d;
-            font-size: 2.5rem;
+        h1 { color: #ff4d6d; }
+        .buttons {
+            margin-top: 30px;
+            height: 50px;
+            position: relative;
         }
-        p {
-            color: #555;
-            font-size: 1.2rem;
+        button {
+            padding: 10px 25px;
+            font-size: 1.1rem;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            position: absolute; /* Idhu thaan move aaguradhuku help pannum */
+            transition: 0.1s;
         }
-        .heart {
-            color: #ff4d6d;
-            font-size: 50px;
-            animation: beat 1s infinite alternate; /* Beating heart effect */
+        #yesBtn { 
+            background-color: #ff4d6d; 
+            color: white;
+            left: 20px;
         }
-        @keyframes beat {
-            to { transform: scale(1.2); }
+        #noBtn {
+            background-color: #ddd;
+            color: #333;
+            left: 180px;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="heart">❤️</div>
-        <h1>Hi Princess!</h1>
-        <p>I built this small web app just for you. <br> Still learning, but started with you!</p>
+    <div class="container" id="main-box">
+        <h1>Hi Princess! ❤️</h1>
+        <p>Will you be mine forever?</p>
+        <div class="buttons">
+            <button id="yesBtn" onclick="celebrate()">Yes</button>
+            <button id="noBtn" onmouseover="moveButton()">No</button>
+        </div>
     </div>
+
+    <script>
+        // "No" button escape aagura logic
+        function moveButton() {
+            const noBtn = document.getElementById('noBtn');
+            
+            // Random-ah screen-la vera oru coordinate-ku anupuradhu
+            // window.innerWidth/Height - button size (so it stays on screen)
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 50);
+            
+            noBtn.style.left = x + "px";
+            noBtn.style.top = y + "px";
+        }
+
+        // "Yes" click panna apuram enna nadakkanum
+        function celebrate() {
+            const box = document.getElementById('main-box');
+            box.innerHTML = "<h1>Yayyy! I Love You! ❤️💍</h1><p>You made me the happiest person!</p>";
+        }
+    </script>
 
 </body>
 </html>
