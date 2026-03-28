@@ -1,124 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Trainer's Secret 🤫</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-    <style>
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Classy purple-blue theme */
-            font-family: 'Poppins', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            color: white;
-        }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            padding: 40px;
-            width: 350px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            text-align: center;
-        }
-        input {
-            padding: 12px;
-            border-radius: 10px;
-            border: none;
-            margin-bottom: 15px;
-            width: 80%;
-            text-align: center;
-            font-size: 1rem;
-        }
-        .hidden { display: none; }
-        .btn {
-            background: #ff4d6d;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 10px;
-            cursor: pointer;
-            margin-top: 15px;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4); }
-        .timeline-item {
-            background: rgba(255, 255, 255, 0.2);
-            margin: 15px 0;
-            padding: 15px;
-            border-radius: 12px;
-            font-size: 0.95rem;
-            border-left: 4px solid #ff4d6d;
-        }
-        #yesBtn { position: relative; z-index: 10; }
-        #noBtn { position: absolute; transition: 0.2s; background: #555; }
-    </style>
-</head>
-<body>
-
-    <div id="login-section" class="glass-card">
-        <h1>🎓 Staff Room Access</h1>
-        <p>Enter the date we first met in Class (DDMM):</p>
-        <input type="password" id="passInput" placeholder="Ex: 0101">
-        <br>
-        <button class="btn" onclick="checkPass()">Unlock Memories</button>
-    </div>
-
-    <div id="main-content" class="glass-card hidden">
-        <h1>Hi My Favorite Student! 👩‍🎓</h1>
-        <p style="font-style: italic; opacity: 0.8;">"Attendance mukkiyam illa, nee dhaan mukkiyam!"</p>
+function getDare() {
+        const dares = [
+            "🔥 Whisper the naughtiest thing you want to do to them in their ear!",
+            "🔞 Send a 'spicy' text to your partner right now (No context allowed!)",
+            "💋 Give them a hickey in a place that's NOT visible to others.",
+            "👕 Swap one piece of clothing with your partner for the next 10 mins.",
+            "🍑 30 seconds of 'blindfolded' touch - Guess where they are touching you!",
+            "🍷 Take a shot of whatever is in the fridge (or a dare of their choice!)",
+            "💖 Tell them your wildest fantasy that you've never told anyone.",
+            "🤐 You are not allowed to use your hands for the next 5 mins. Figure it out!",
+            "📸 Take a 'suggestive' photo together but don't show anyone... yet.",
+            "😈 Let your partner look through your 'Recently Deleted' photos for 1 min!"
+        ];
         
-        <div id="timeline">
-            <div class="timeline-item">📍 **June 6th:** Naan Trainer-ah vandhaen, aana un kitta 'Train' aagi settle aayitaen! 😂</div>
-            <div class="timeline-item">📍 **The Class:** Oru vazhiya kavanikkura maadhiri nadichu ennaye "Follow" panna vachuta paathiya? 🤫</div>
-        </div>
-
-        <p style="margin-top: 25px; font-weight: 600;">Will you be my 'Permanent Student' forever?</p>
-        <div style="height: 60px; position: relative; margin-top: 20px;">
-            <button class="btn" id="yesBtn" onclick="celebrate()">YES, SIR! ❤️</button>
-            <button class="btn" id="noBtn" onmouseover="moveNo()">NO WAY</button>
-        </div>
-    </div>
-
-    <script>
-        function checkPass() {
-            const pass = document.getElementById('passInput').value;
-            // June 6 = 0606
-            if(pass === "0606") { 
-                document.getElementById('login-section').style.display = 'none';
-                document.getElementById('main-content').classList.remove('hidden');
-            } else {
-                alert("Wrong Date! Attendance fail aayidum... Try again! 😂❤️");
-            }
-        }
-
-        function moveNo() {
-            const btn = document.getElementById('noBtn');
-            const x = Math.random() * (window.innerWidth - 100);
-            const y = Math.random() * (window.innerHeight - 50);
-            btn.style.position = 'fixed';
-            btn.style.left = x + "px";
-            btn.style.top = y + "px";
-        }
-
-        function celebrate() {
-            confetti({
-                particleCount: 200,
-                spread: 90,
-                origin: { y: 0.6 },
-                colors: ['#ff4d6d', '#ffffff', '#ffccd5']
-            });
-            setTimeout(() => {
-                alert("Okay, Attendance Marked! I Love You Forever! ❤️💍");
-            }, 500);
-        }
-    </script>
-</body>
-</html>
+        const randomTask = dares[Math.floor(Math.random() * dares.length)];
+        const dareText = document.getElementById('dare-text');
+        
+        // Adding a small animation effect when task changes
+        dareText.style.opacity = 0;
+        setTimeout(() => {
+            dareText.innerText = randomTask;
+            dareText.style.opacity = 1;
+        }, 300);
+    }
