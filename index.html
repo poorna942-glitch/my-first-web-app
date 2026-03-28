@@ -3,85 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Couple Zone 🔥 Adults Only</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Extreme Party Monster 🔞🔥</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
-        :root { --main: #ff1c5a; --dark: #121212; --glass: rgba(255, 255, 255, 0.1); }
-        body { background: var(--dark); font-family: 'Poppins', sans-serif; text-align: center; color: white; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        :root { --neon: #ff0055; --blue: #00d4ff; --bg: #050505; --card: rgba(255, 255, 255, 0.08); }
+        body { background: var(--bg); font-family: 'Segoe UI', sans-serif; color: white; margin: 0; overflow-x: hidden; }
+        .container { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; }
+        h1 { font-size: 2.8rem; color: var(--neon); text-shadow: 0 0 15px var(--neon); margin: 0; }
+        .sub { opacity: 0.6; margin-bottom: 30px; letter-spacing: 2px; }
+
+        /* Dashboard Grid */
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; max-width: 500px; }
+        .card { background: var(--card); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 25px; cursor: pointer; transition: 0.3s; }
+        .card:hover { border-color: var(--blue); transform: scale(1.05); box-shadow: 0 0 20px rgba(0,212,255,0.3); }
+        .emoji { font-size: 2.5rem; display: block; margin-bottom: 10px; }
+        .card-title { font-weight: bold; font-size: 1.1rem; }
+
+        /* Game Overlay */
+        #game-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 100; flex-direction: column; justify-content: center; align-items: center; padding: 30px; text-align: center; }
+        .badge { background: var(--blue); color: #000; padding: 5px 20px; border-radius: 20px; font-weight: bold; margin-bottom: 30px; text-transform: uppercase; }
+        .task-box { font-size: 1.8rem; font-weight: bold; line-height: 1.4; color: #fff; margin-bottom: 40px; min-height: 150px; display: flex; align-items: center; justify-content: center; max-width: 600px; }
+        .punishment { color: var(--neon); font-size: 1.2rem; margin-bottom: 30px; font-style: italic; }
         
-        .main-kit { background: var(--glass); backdrop-filter: blur(10px); border-radius: 25px; border: 1px solid rgba(255,255,255,0.1); width: 100%; max-width: 400px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-        .head-zone { padding-bottom: 20px; }
-        .head-zone h1 { color: var(--main); margin: 0; font-size: 1.8rem; }
-        
-        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
-        .menu-btn { background: rgba(255,255,255,0.05); padding: 25px; border-radius: 15px; cursor: pointer; border: 2px solid transparent; transition: 0.3s; color: rgba(255,255,255,0.8); }
-        .menu-btn:hover { border-color: var(--main); background: rgba(255, 77, 109, 0.1); transform: translateY(-3px); color: white; }
-        .menu-btn h3 { margin: 10px 0 0; font-size: 1rem; }
-        
-        .hidden { display: none; }
-        .game-area { margin-top: 30px; animation: fadeIn 0.5s; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        
-        .action-btn { background: var(--main); color: white; border: none; padding: 12px 25px; border-radius: 12px; cursor: pointer; margin-top: 20px; width: 80%; font-size: 1rem; }
-        .back-btn { display: block; margin-top: 25px; color: #aaa; cursor: pointer; text-decoration: underline; font-size: 0.8rem; }
+        .btn-group { width: 100%; max-width: 300px; }
+        .next-btn { background: var(--neon); color: white; border: none; padding: 18px; border-radius: 50px; font-size: 1.3rem; font-weight: bold; cursor: pointer; width: 100%; box-shadow: 0 0 20px var(--neon); transition: 0.2s; }
+        .next-btn:active { transform: scale(0.95); }
+        .exit { margin-top: 40px; color: #777; cursor: pointer; text-decoration: underline; }
     </style>
 </head>
 <body>
 
-    <div class="main-kit" id="home-screen">
-        <div class="head-zone">
-            <h1>Couple Zone 🔥</h1>
-            <p style="opacity:0.7;"> Fun & Wild games for Adults Only 🔞</p>
-        </div>
-
-        <div class="menu-grid">
-            <div class="menu-btn" onclick="play('dare')">🎲<h3>Spicy Dares</h3></div>
-            <div class="menu-btn" onclick="play('roulette')">🎰<h3>Love Roulette</h3></div>
-            <div class="menu-btn" onclick="play('encoder')">🤫<h3>Secret Mode</h3></div>
-            <div class="menu-btn" onclick="play('calc')">📈<h3>Compatibility</h3></div>
+    <div class="container" id="home">
+        <h1>PARTY MONSTER 🔞</h1>
+        <p class="sub">DO IT OR DRINK • EXTREME 18+</p>
+        
+        <div class="grid">
+            <div class="card" onclick="openGame('truth')"><span class="emoji">💬</span><span class="card-title">Dirty Truth</span></div>
+            <div class="card" onclick="openGame('dare')"><span class="emoji">🔥</span><span class="card-title">Extreme Dare</span></div>
+            <div class="card" onclick="openGame('drunk')"><span class="emoji">🥃</span><span class="card-title">Shot Roulette</span></div>
+            <div class="card" onclick="openGame('couple')"><span class="emoji">💋</span><span class="card-title">Couple Spicy</span></div>
+            <div class="card" onclick="openGame('nhie')"><span class="emoji">🍺</span><span class="card-title">Never Have I</span></div>
+            <div class="card" onclick="openGame('wild')"><span class="emoji">😈</span><span class="card-title">Wild King</span></div>
         </div>
     </div>
 
-    <div class="main-kit hidden" id="play-zone">
-        <div id="game-content"></div>
-        <div class="back-btn" onclick="goHome()">Back to Menu</div>
+    <div id="game-overlay">
+        <div class="badge" id="mode-label">MODE</div>
+        <div class="task-box" id="task-text">Loading spicy task...</div>
+        <div class="punishment" id="penalty-text">OR TAKE A FULL SHOT! 🥃</div>
+        <div class="btn-group">
+            <button class="next-btn" onclick="nextTask()">NEXT 🔥</button>
+        </div>
+        <div class="exit" onclick="goHome()">Exit Game</div>
     </div>
 
     <script>
-        function goHome() {
-            document.getElementById('home-screen').style.display = 'block';
-            document.getElementById('play-zone').classList.add('hidden');
+        let currentMode = '';
+        const database = {
+            truth: [
+                "What's the most scandalous thing you've ever done in a car?",
+                "Who in this room would you most like to see naked?",
+                "What's the longest you've gone without showering, and why?",
+                "Have you ever had a crush on a friend's partner?",
+                "What is your wildest 'one-night stand' story?",
+                "What is the most embarrassing thing your parents have caught you doing?"
+            ],
+            dare: [
+                "Give a 1-minute lap dance to the person sitting to your left!",
+                "Take off three items of clothing and remain like that for the next 5 rounds.",
+                "Let the group choose a contact from your phone and send them a 'U up?' text.",
+                "Twerk for 30 seconds while someone records it for the 'memories'.",
+                "Exchange shirts with the person sitting directly opposite you.",
+                "Let someone in the room give you a hickey on your neck."
+            ],
+            drunk: [
+                "DRINKING GAME: Everyone who is wearing black underwear takes a shot!",
+                "RHYME TIME: Pick a word. Everyone must rhyme with it. First to fail drinks!",
+                "CATEGORIES: Pick a category (e.g., Sex Positions). First to repeat or fail drinks!",
+                "THIRSTY: The person who last checked their phone must finish their drink.",
+                "SIPS: Everyone who has ever faked an 'O' takes two huge sips!"
+            ],
+            couple: [
+                "Partner A must whisper their wildest fantasy into Partner B's ear. If they blush, both drink!",
+                "Blindfold one partner and let the other kiss them anywhere. Guess the spot or take a shot!",
+                "Show the group the last 'spicy' photo or text you sent to each other.",
+                "Couples: Swap a piece of clothing with each other right now!",
+                "Tell the group the one thing your partner does in bed that drives you crazy."
+            ],
+            nhie: [
+                "Never have I ever joined the 'Mile High Club'. (If you have, drink!)",
+                "Never have I ever hooked up with a co-worker. (Drink!)",
+                "Never have I ever sent a nude to the wrong person. (Finish your drink!)",
+                "Never have I ever been caught in the act. (Drink!)",
+                "Never have I ever had a dream about someone in this room. (Take a shot!)"
+            ],
+            wild: [
+                "KING'S COMMAND: The King picks two people to go into a room for 5 minutes.",
+                "BODY SHOT: Pick someone to take a shot off your navel!",
+                "STRIP: The last person to touch the floor must remove an item of clothing.",
+                "SEVEN MINUTES: You and the person you find most attractive must sit in the dark for 2 mins."
+            ]
+        };
+
+        function openGame(mode) {
+            currentMode = mode;
+            document.getElementById('home').style.display = 'none';
+            document.getElementById('game-overlay').style.display = 'flex';
+            document.getElementById('mode-label').innerText = mode.replace(/([A-Z])/g, ' $1').trim();
+            nextTask();
         }
 
-        function play(gameId) {
-            document.getElementById('home-screen').style.display = 'none';
-            const zone = document.getElementById('play-zone');
-            zone.classList.remove('hidden');
-            const content = document.getElementById('game-content');
+        function nextTask() {
+            const list = database[currentMode];
+            const random = list[Math.floor(Math.random() * list.length)];
+            document.getElementById('task-text').innerText = random;
             
-            if(gameId === 'dare') {
-                content.innerHTML = `<h3 style="color:#ffcc00">Spicy Dare 🌶️</h3>
-                    <p id="dare-text" style="font-size: 1.2rem;"> Tap the button below to get a dare! </p>
-                    <button class="action-btn" onclick="getExtremeDare()">Get New Dare</button>`;
-            } else if(gameId === 'roulette') {
-                content.innerHTML = `<h3>Love Roulette 🎰</h3>
-                    <p id="roulette-text" style="font-size: 1.2rem;"> Spin the wheel for a random action! </p>
-                    <button class="action-btn" onclick="spinRoulette()">Spin Now</button>`;
-            } else if(gameId === 'encoder') {
-                content.innerHTML = `<h3>Secret encoder 🤫</h3>
-                    <input type="text" id="msg" placeholder="Type secret message..." style="width:80%; padding:10px; border-radius:10px; border:none; margin:10px 0;">
-                    <button class="action-btn" onclick="encode()">Encode</button>
-                    <p id="enc-res" style="word-break: break-all; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 10px; margin-top:10px;"></p>`;
-            } else if(gameId === 'calc') {
-                content.innerHTML = `<h3>Compatibility Test 📈</h3>
-                    <p>Enter your names to check compatibility!</p>
-                    <input type="text" placeholder="Partner 1 Name" style="width:80%; padding:10px; border-radius:10px; border:none; margin:10px 0;">
-                    <input type="text" placeholder="Partner 2 Name" style="width:80%; padding:10px; border-radius:10px; border:none; margin:10px 0;">
-                    <button class="action-btn" onclick="runCalc()">Calculate</button>
-                    <div id="calc-res"></div>`;
+            // Randomly change the penalty text for variety
+            const penalties = ["OR TAKE A FULL SHOT! 🥃", "OR FINISH YOUR DRINK! 🍺", "OR REMOVE AN ITEM OF CLOTHING! 👕", "OR DO 10 PUSHUPS! 💪"];
+            document.getElementById('penalty-text').innerText = penalties[Math.floor(Math.random() * penalties.length)];
+
+            if(currentMode === 'wild' || currentMode === 'drunk') {
+                confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
             }
         }
-    </script>
 
+        function goHome() {
+            document.getElementById('home').style.display = 'flex';
+            document.getElementById('game-overlay').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
