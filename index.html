@@ -1,24 +1,87 @@
-function getDare() {
-        const dares = [
-            "🔥 Whisper the naughtiest thing you want to do to them in their ear!",
-            "🔞 Send a 'spicy' text to your partner right now (No context allowed!)",
-            "💋 Give them a hickey in a place that's NOT visible to others.",
-            "👕 Swap one piece of clothing with your partner for the next 10 mins.",
-            "🍑 30 seconds of 'blindfolded' touch - Guess where they are touching you!",
-            "🍷 Take a shot of whatever is in the fridge (or a dare of their choice!)",
-            "💖 Tell them your wildest fantasy that you've never told anyone.",
-            "🤐 You are not allowed to use your hands for the next 5 mins. Figure it out!",
-            "📸 Take a 'suggestive' photo together but don't show anyone... yet.",
-            "😈 Let your partner look through your 'Recently Deleted' photos for 1 min!"
-        ];
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Couple Zone 🔥 Adults Only</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --main: #ff1c5a; --dark: #121212; --glass: rgba(255, 255, 255, 0.1); }
+        body { background: var(--dark); font-family: 'Poppins', sans-serif; text-align: center; color: white; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
         
-        const randomTask = dares[Math.floor(Math.random() * dares.length)];
-        const dareText = document.getElementById('dare-text');
+        .main-kit { background: var(--glass); backdrop-filter: blur(10px); border-radius: 25px; border: 1px solid rgba(255,255,255,0.1); width: 100%; max-width: 400px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .head-zone { padding-bottom: 20px; }
+        .head-zone h1 { color: var(--main); margin: 0; font-size: 1.8rem; }
         
-        // Adding a small animation effect when task changes
-        dareText.style.opacity = 0;
-        setTimeout(() => {
-            dareText.innerText = randomTask;
-            dareText.style.opacity = 1;
-        }, 300);
-    }
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+        .menu-btn { background: rgba(255,255,255,0.05); padding: 25px; border-radius: 15px; cursor: pointer; border: 2px solid transparent; transition: 0.3s; color: rgba(255,255,255,0.8); }
+        .menu-btn:hover { border-color: var(--main); background: rgba(255, 77, 109, 0.1); transform: translateY(-3px); color: white; }
+        .menu-btn h3 { margin: 10px 0 0; font-size: 1rem; }
+        
+        .hidden { display: none; }
+        .game-area { margin-top: 30px; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        .action-btn { background: var(--main); color: white; border: none; padding: 12px 25px; border-radius: 12px; cursor: pointer; margin-top: 20px; width: 80%; font-size: 1rem; }
+        .back-btn { display: block; margin-top: 25px; color: #aaa; cursor: pointer; text-decoration: underline; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+    <div class="main-kit" id="home-screen">
+        <div class="head-zone">
+            <h1>Couple Zone 🔥</h1>
+            <p style="opacity:0.7;"> Fun & Wild games for Adults Only 🔞</p>
+        </div>
+
+        <div class="menu-grid">
+            <div class="menu-btn" onclick="play('dare')">🎲<h3>Spicy Dares</h3></div>
+            <div class="menu-btn" onclick="play('roulette')">🎰<h3>Love Roulette</h3></div>
+            <div class="menu-btn" onclick="play('encoder')">🤫<h3>Secret Mode</h3></div>
+            <div class="menu-btn" onclick="play('calc')">📈<h3>Compatibility</h3></div>
+        </div>
+    </div>
+
+    <div class="main-kit hidden" id="play-zone">
+        <div id="game-content"></div>
+        <div class="back-btn" onclick="goHome()">Back to Menu</div>
+    </div>
+
+    <script>
+        function goHome() {
+            document.getElementById('home-screen').style.display = 'block';
+            document.getElementById('play-zone').classList.add('hidden');
+        }
+
+        function play(gameId) {
+            document.getElementById('home-screen').style.display = 'none';
+            const zone = document.getElementById('play-zone');
+            zone.classList.remove('hidden');
+            const content = document.getElementById('game-content');
+            
+            if(gameId === 'dare') {
+                content.innerHTML = `<h3 style="color:#ffcc00">Spicy Dare 🌶️</h3>
+                    <p id="dare-text" style="font-size: 1.2rem;"> Tap the button below to get a dare! </p>
+                    <button class="action-btn" onclick="getExtremeDare()">Get New Dare</button>`;
+            } else if(gameId === 'roulette') {
+                content.innerHTML = `<h3>Love Roulette 🎰</h3>
+                    <p id="roulette-text" style="font-size: 1.2rem;"> Spin the wheel for a random action! </p>
+                    <button class="action-btn" onclick="spinRoulette()">Spin Now</button>`;
+            } else if(gameId === 'encoder') {
+                content.innerHTML = `<h3>Secret encoder 🤫</h3>
+                    <input type="text" id="msg" placeholder="Type secret message..." style="width:80%; padding:10px; border-radius:10px; border:none; margin:10px 0;">
+                    <button class="action-btn" onclick="encode()">Encode</button>
+                    <p id="enc-res" style="word-break: break-all; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 10px; margin-top:10px;"></p>`;
+            } else if(gameId === 'calc') {
+                content.innerHTML = `<h3>Compatibility Test 📈</h3>
+                    <p>Enter your names to check compatibility!</p>
+                    <input type="text" placeholder="Partner 1 Name" style="width:80%; padding:10px; border-radius:10px; border:none; margin:10px 0;">
+                    <input type="text" placeholder="Partner 2 Name" style="width:80%; padding:10px; border-radius:10px; border:none; margin:10px 0;">
+                    <button class="action-btn" onclick="runCalc()">Calculate</button>
+                    <div id="calc-res"></div>`;
+            }
+        }
+    </script>
+
+</body>
+</html>
