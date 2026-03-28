@@ -3,81 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reverse Prank! ❤️</title>
+    <title>The Trainer's Secret 🤫</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
         body {
-            background-color: #ffeef2;
-            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Classy purple-blue theme */
+            font-family: 'Poppins', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
-            overflow: hidden;
+            color: white;
         }
-        .container {
-            text-align: center;
-            background: white;
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
             padding: 40px;
-            border-radius: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            width: 320px;
+            width: 350px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            text-align: center;
         }
-        h1 { color: #ff4d6d; }
-        .buttons {
-            margin-top: 30px;
-            height: 50px;
-            position: relative;
-        }
-        button {
-            padding: 10px 25px;
-            font-size: 1.1rem;
+        input {
+            padding: 12px;
             border-radius: 10px;
             border: none;
-            cursor: pointer;
-            position: absolute;
-            transition: 0.1s;
+            margin-bottom: 15px;
+            width: 80%;
+            text-align: center;
+            font-size: 1rem;
         }
-        #yesBtn { 
-            background-color: #ff4d6d; 
+        .hidden { display: none; }
+        .btn {
+            background: #ff4d6d;
             color: white;
-            left: 20px;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-weight: bold;
+            transition: 0.3s;
         }
-        #noBtn {
-            background-color: #ddd;
-            color: #333;
-            left: 180px;
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4); }
+        .timeline-item {
+            background: rgba(255, 255, 255, 0.2);
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            border-left: 4px solid #ff4d6d;
         }
+        #yesBtn { position: relative; z-index: 10; }
+        #noBtn { position: absolute; transition: 0.2s; background: #555; }
     </style>
 </head>
 <body>
 
-    <div class="container" id="main-box">
-        <h1>Hi Princess! ❤️</h1>
-        <p>Will you be mine forever?</p>
-        <div class="buttons">
-            <button id="yesBtn" onmouseover="moveYesButton()">Yes</button>
-            <button id="noBtn" onclick="rejected()">No</button>
+    <div id="login-section" class="glass-card">
+        <h1>🎓 Staff Room Access</h1>
+        <p>Enter the date we first met in Class (DDMM):</p>
+        <input type="password" id="passInput" placeholder="Ex: 0101">
+        <br>
+        <button class="btn" onclick="checkPass()">Unlock Memories</button>
+    </div>
+
+    <div id="main-content" class="glass-card hidden">
+        <h1>Hi My Favorite Student! 👩‍🎓</h1>
+        <p style="font-style: italic; opacity: 0.8;">"Attendance mukkiyam illa, nee dhaan mukkiyam!"</p>
+        
+        <div id="timeline">
+            <div class="timeline-item">📍 **June 6th:** Naan Trainer-ah vandhaen, aana un kitta 'Train' aagi settle aayitaen! 😂</div>
+            <div class="timeline-item">📍 **The Class:** Oru vazhiya kavanikkura maadhiri nadichu ennaye "Follow" panna vachuta paathiya? 🤫</div>
+        </div>
+
+        <p style="margin-top: 25px; font-weight: 600;">Will you be my 'Permanent Student' forever?</p>
+        <div style="height: 60px; position: relative; margin-top: 20px;">
+            <button class="btn" id="yesBtn" onclick="celebrate()">YES, SIR! ❤️</button>
+            <button class="btn" id="noBtn" onmouseover="moveNo()">NO WAY</button>
         </div>
     </div>
 
     <script>
-        // YES button escape aagura logic
-        function moveYesButton() {
-            const yesBtn = document.getElementById('yesBtn');
+        function checkPass() {
+            const pass = document.getElementById('passInput').value;
+            // June 6 = 0606
+            if(pass === "0606") { 
+                document.getElementById('login-section').style.display = 'none';
+                document.getElementById('main-content').classList.remove('hidden');
+            } else {
+                alert("Wrong Date! Attendance fail aayidum... Try again! 😂❤️");
+            }
+        }
+
+        function moveNo() {
+            const btn = document.getElementById('noBtn');
             const x = Math.random() * (window.innerWidth - 100);
             const y = Math.random() * (window.innerHeight - 50);
-            
-            yesBtn.style.left = x + "px";
-            yesBtn.style.top = y + "px";
+            btn.style.position = 'fixed';
+            btn.style.left = x + "px";
+            btn.style.top = y + "px";
         }
 
-        // NO click panna enna nadakkanum
-        function rejected() {
-            const box = document.getElementById('main-box');
-            box.innerHTML = "<h1>Oh No! 💔</h1><p>Better luck next time, Poorna!</p>";
+        function celebrate() {
+            confetti({
+                particleCount: 200,
+                spread: 90,
+                origin: { y: 0.6 },
+                colors: ['#ff4d6d', '#ffffff', '#ffccd5']
+            });
+            setTimeout(() => {
+                alert("Okay, Attendance Marked! I Love You Forever! ❤️💍");
+            }, 500);
         }
     </script>
-
 </body>
 </html>
