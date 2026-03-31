@@ -3,134 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Extreme Party Monster 🔞🔥</title>
+    <title>DevOps Architect Challenge ☁️</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
-        :root { --neon: #ff0055; --blue: #00d4ff; --bg: #050505; --card: rgba(255, 255, 255, 0.08); }
-        body { background: var(--bg); font-family: 'Segoe UI', sans-serif; color: white; margin: 0; overflow-x: hidden; }
-        .container { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; }
-        h1 { font-size: 2.8rem; color: var(--neon); text-shadow: 0 0 15px var(--neon); margin: 0; }
-        .sub { opacity: 0.6; margin-bottom: 30px; letter-spacing: 2px; }
-
-        /* Dashboard Grid */
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; max-width: 500px; }
-        .card { background: var(--card); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 25px; cursor: pointer; transition: 0.3s; }
-        .card:hover { border-color: var(--blue); transform: scale(1.05); box-shadow: 0 0 20px rgba(0,212,255,0.3); }
-        .emoji { font-size: 2.5rem; display: block; margin-bottom: 10px; }
-        .card-title { font-weight: bold; font-size: 1.1rem; }
-
-        /* Game Overlay */
-        #game-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 100; flex-direction: column; justify-content: center; align-items: center; padding: 30px; text-align: center; }
-        .badge { background: var(--blue); color: #000; padding: 5px 20px; border-radius: 20px; font-weight: bold; margin-bottom: 30px; text-transform: uppercase; }
-        .task-box { font-size: 1.8rem; font-weight: bold; line-height: 1.4; color: #fff; margin-bottom: 40px; min-height: 150px; display: flex; align-items: center; justify-content: center; max-width: 600px; }
-        .punishment { color: var(--neon); font-size: 1.2rem; margin-bottom: 30px; font-style: italic; }
-        
-        .btn-group { width: 100%; max-width: 300px; }
-        .next-btn { background: var(--neon); color: white; border: none; padding: 18px; border-radius: 50px; font-size: 1.3rem; font-weight: bold; cursor: pointer; width: 100%; box-shadow: 0 0 20px var(--neon); transition: 0.2s; }
-        .next-btn:active { transform: scale(0.95); }
-        .exit { margin-top: 40px; color: #777; cursor: pointer; text-decoration: underline; }
+        :root { --aws-orange: #ff9900; --dark-blue: #232f3e; --bg: #f2f3f3; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); margin: 0; text-align: center; }
+        header { background: var(--dark-blue); color: white; padding: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .container { max-width: 700px; margin: 30px auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .stats { display: flex; justify-content: space-around; margin-bottom: 20px; font-weight: bold; color: var(--dark-blue); }
+        .question-box { margin-bottom: 30px; padding: 20px; border-left: 5px solid var(--aws-orange); background: #fffaf0; text-align: left; }
+        .options-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
+        button { padding: 15px; border: 1px solid #ddd; border-radius: 8px; background: white; cursor: pointer; transition: 0.3s; font-size: 1rem; text-align: left; }
+        button:hover { background: #eee; border-color: var(--aws-orange); }
+        .correct { background: #d4edda !important; border-color: #28a745 !important; }
+        .wrong { background: #f8d7da !important; border-color: #dc3545 !important; }
+        #next-btn { margin-top: 25px; background: var(--aws-orange); color: white; border: none; padding: 12px 30px; font-weight: bold; display: none; cursor: pointer; border-radius: 5px; }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 
-    <div class="container" id="home">
-        <h1>PARTY MONSTER 🔞</h1>
-        <p class="sub">DO IT OR DRINK • EXTREME 18+</p>
+<header>
+    <h1>DevOps Architect Challenge 🚀</h1>
+    <p>Master AWS & DevOps through Play</p>
+</header>
+
+<div class="container" id="game-container">
+    <div class="stats">
+        <span>Level: <span id="level-display">1</span>/10</span>
+        <span>Score: <span id="score-display">0</span></span>
+    </div>
+
+    <div id="quiz">
+        <div class="question-box">
+            <h3 id="question-text">Loading first challenge...</h3>
+        </div>
+        <div class="options-grid" id="options-container">
+            </div>
+        <button id="next-btn" onclick="loadNextQuestion()">Next Challenge →</button>
+    </div>
+
+    <div id="result-screen" class="hidden">
+        <h2>Challenge Complete! 🏆</h2>
+        <p id="final-score"></p>
+        <button onclick="location.reload()" style="background: var(--dark-blue); color: white; text-align: center;">Retry Certification</button>
+    </div>
+</div>
+
+<script>
+    const quizData = [
+        {
+            q: "INTERVIEW MUST: You need to change file permissions so only the owner can Read, Write, and Execute. Command?",
+            a: ["chmod 777 filename", "chmod 700 filename", "chown 755 filename", "chmod 644 filename"],
+            c: 1,
+            topic: "Linux Security"
+        },
+        {
+            q: "NETWORKING: Which AWS component allows your VPC instances to talk to the Internet?",
+            a: ["Virtual Private Gateway", "NAT Gateway", "Internet Gateway (IGW)", "Security Group"],
+            c: 2,
+            topic: "VPC"
+        },
+        {
+            q: "COMPUTE: You need to host a simple website with very low cost and auto-scaling. Which service?",
+            a: ["AWS EC2", "AWS Lambda", "AWS S3 Static Hosting", "AWS Lightsail"],
+            c: 2,
+            topic: "S3"
+        },
+        {
+            q: "STORAGE: Which S3 Storage Class is best for archiving data for 7-10 years (rarely accessed)?",
+            a: ["Standard", "Intelligent Tiering", "Glacier Deep Archive", "Standard-IA"],
+            c: 2,
+            topic: "S3"
+        },
+        {
+            q: "SECURITY: You want to give an EC2 instance permission to upload files to S3. Best practice?",
+            a: ["Hardcode IAM User Keys in code", "Use IAM Roles for EC2", "Make S3 bucket Public", "Share Root Account credentials"],
+            c: 1,
+            topic: "IAM"
+        },
+        {
+            q: "DEVOPS: Which file is used to define the steps of a Docker image build?",
+            a: ["docker-compose.yml", "jenkinsfile", "Dockerfile", "image.spec"],
+            c: 2,
+            topic: "Docker"
+        }
+        // Innum 20-30 questions neenga add pannalam!
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+
+    function loadQuestion() {
+        const q = quizData[currentQ];
+        document.getElementById("question-text").innerText = q.q;
+        document.getElementById("level-display").innerText = currentQ + 1;
+        const optionsContainer = document.getElementById("options-container");
+        optionsContainer.innerHTML = "";
+
+        q.a.forEach((opt, index) => {
+            const btn = document.createElement("button");
+            btn.innerText = opt;
+            btn.onclick = () => selectOption(index);
+            optionsContainer.appendChild(btn);
+        });
+        document.getElementById("next-btn").style.display = "none";
+    }
+
+    function selectOption(index) {
+        const correct = quizData[currentQ].c;
+        const btns = document.querySelectorAll(".options-grid button");
         
-        <div class="grid">
-            <div class="card" onclick="openGame('truth')"><span class="emoji">💬</span><span class="card-title">Dirty Truth</span></div>
-            <div class="card" onclick="openGame('dare')"><span class="emoji">🔥</span><span class="card-title">Extreme Dare</span></div>
-            <div class="card" onclick="openGame('drunk')"><span class="emoji">🥃</span><span class="card-title">Shot Roulette</span></div>
-            <div class="card" onclick="openGame('couple')"><span class="emoji">💋</span><span class="card-title">Couple Spicy</span></div>
-            <div class="card" onclick="openGame('nhie')"><span class="emoji">🍺</span><span class="card-title">Never Have I</span></div>
-            <div class="card" onclick="openGame('wild')"><span class="emoji">😈</span><span class="card-title">Wild King</span></div>
-        </div>
-    </div>
-
-    <div id="game-overlay">
-        <div class="badge" id="mode-label">MODE</div>
-        <div class="task-box" id="task-text">Loading spicy task...</div>
-        <div class="punishment" id="penalty-text">OR TAKE A FULL SHOT! 🥃</div>
-        <div class="btn-group">
-            <button class="next-btn" onclick="nextTask()">NEXT 🔥</button>
-        </div>
-        <div class="exit" onclick="goHome()">Exit Game</div>
-    </div>
-
-    <script>
-        let currentMode = '';
-        const database = {
-            truth: [
-                "What's the most scandalous thing you've ever done in a car?",
-                "Who in this room would you most like to see naked?",
-                "What's the longest you've gone without showering, and why?",
-                "Have you ever had a crush on a friend's partner?",
-                "What is your wildest 'one-night stand' story?",
-                "What is the most embarrassing thing your parents have caught you doing?"
-            ],
-            dare: [
-                "Give a 1-minute lap dance to the person sitting to your left!",
-                "Take off three items of clothing and remain like that for the next 5 rounds.",
-                "Let the group choose a contact from your phone and send them a 'U up?' text.",
-                "Twerk for 30 seconds while someone records it for the 'memories'.",
-                "Exchange shirts with the person sitting directly opposite you.",
-                "Let someone in the room give you a hickey on your neck."
-            ],
-            drunk: [
-                "DRINKING GAME: Everyone who is wearing black underwear takes a shot!",
-                "RHYME TIME: Pick a word. Everyone must rhyme with it. First to fail drinks!",
-                "CATEGORIES: Pick a category (e.g., Sex Positions). First to repeat or fail drinks!",
-                "THIRSTY: The person who last checked their phone must finish their drink.",
-                "SIPS: Everyone who has ever faked an 'O' takes two huge sips!"
-            ],
-            couple: [
-                "Partner A must whisper their wildest fantasy into Partner B's ear. If they blush, both drink!",
-                "Blindfold one partner and let the other kiss them anywhere. Guess the spot or take a shot!",
-                "Show the group the last 'spicy' photo or text you sent to each other.",
-                "Couples: Swap a piece of clothing with each other right now!",
-                "Tell the group the one thing your partner does in bed that drives you crazy."
-            ],
-            nhie: [
-                "Never have I ever joined the 'Mile High Club'. (If you have, drink!)",
-                "Never have I ever hooked up with a co-worker. (Drink!)",
-                "Never have I ever sent a nude to the wrong person. (Finish your drink!)",
-                "Never have I ever been caught in the act. (Drink!)",
-                "Never have I ever had a dream about someone in this room. (Take a shot!)"
-            ],
-            wild: [
-                "KING'S COMMAND: The King picks two people to go into a room for 5 minutes.",
-                "BODY SHOT: Pick someone to take a shot off your navel!",
-                "STRIP: The last person to touch the floor must remove an item of clothing.",
-                "SEVEN MINUTES: You and the person you find most attractive must sit in the dark for 2 mins."
-            ]
-        };
-
-        function openGame(mode) {
-            currentMode = mode;
-            document.getElementById('home').style.display = 'none';
-            document.getElementById('game-overlay').style.display = 'flex';
-            document.getElementById('mode-label').innerText = mode.replace(/([A-Z])/g, ' $1').trim();
-            nextTask();
+        if(index === correct) {
+            btns[index].classList.add("correct");
+            score += 10;
+            document.getElementById("score-display").innerText = score;
+            confetti({ particleCount: 50, spread: 60 });
+        } else {
+            btns[index].classList.add("wrong");
+            btns[correct].classList.add("correct");
         }
 
-        function nextTask() {
-            const list = database[currentMode];
-            const random = list[Math.floor(Math.random() * list.length)];
-            document.getElementById('task-text').innerText = random;
-            
-            // Randomly change the penalty text for variety
-            const penalties = ["OR TAKE A FULL SHOT! 🥃", "OR FINISH YOUR DRINK! 🍺", "OR REMOVE AN ITEM OF CLOTHING! 👕", "OR DO 10 PUSHUPS! 💪"];
-            document.getElementById('penalty-text').innerText = penalties[Math.floor(Math.random() * penalties.length)];
+        btns.forEach(b => b.disabled = true);
+        document.getElementById("next-btn").style.display = "block";
+    }
 
-            if(currentMode === 'wild' || currentMode === 'drunk') {
-                confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
-            }
+    function loadNextQuestion() {
+        currentQ++;
+        if(currentQ < quizData.length) {
+            loadQuestion();
+        } else {
+            document.getElementById("quiz").classList.add("hidden");
+            document.getElementById("result-screen").classList.remove("hidden");
+            document.getElementById("final-score").innerText = `Total Score: ${score}/ ${quizData.length * 10}`;
         }
+    }
 
-        function goHome() {
-            document.getElementById('home').style.display = 'flex';
-            document.getElementById('game-overlay').style.display = 'none';
-        }
-    </script>
+    loadQuestion();
+</script>
+
 </body>
 </html>
